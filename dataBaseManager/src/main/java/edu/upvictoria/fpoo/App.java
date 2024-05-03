@@ -9,6 +9,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Push de prueba!!" );
+        System.out.println( "Segundo push" );
     }
 }
