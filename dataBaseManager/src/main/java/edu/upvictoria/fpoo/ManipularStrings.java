@@ -27,14 +27,28 @@ public class ManipularStrings {
      */
     public static String encontrarCaracter(String cadenaConcatenada) {
         do {
-            cadenaConcatenada = cadenaConcatenada.concat(ManipularStrings.leerLinea());
+            cadenaConcatenada = cadenaConcatenada.concat(ManipularStrings.leerLinea()).trim();
+            if (!cadenaConcatenada.endsWith(";")) {
+                cadenaConcatenada = cadenaConcatenada.concat(" ");
+            }
         } while (!cadenaConcatenada.endsWith(";"));
 
         return cadenaConcatenada;
     }
 
     /*
-    Funcion dedicada a separar la consult del usuario ṕor palabras
+    Funcion dedicada a separar la consulta por palabras siendo los espacios el indicador
+     */
+    public static String[] separarConsulta(String cadenaConcatenada) {
+        String[] arrayPalabras = cadenaConcatenada.split(" ");
+        for (int i = 0; i < arrayPalabras.length; i++) {
+            arrayPalabras[i] = arrayPalabras[i].trim();
+        }
+        return arrayPalabras;
+    }
+
+    /*
+    Funcion dedicada a
      */
 
 }

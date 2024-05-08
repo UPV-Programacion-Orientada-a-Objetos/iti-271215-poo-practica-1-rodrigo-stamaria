@@ -1,32 +1,80 @@
 package edu.upvictoria.fpoo;
 
-import java.util.HashMap;
-import java.util.Map;
+import edu.upvictoria.fpoo.exceptions.IncompleteSentenceException;
 
 public class PalabrasReservadas {
 
-    /*
-    Hashmap de palabras reservadas de sql
-     */
-    public static void definirHashmap() {
-        HashMap <String, String> palabrasReservadas = new HashMap<>();
-        //ordenar alfabeticamente
-        palabrasReservadas.put("table", "table");
-        palabrasReservadas.put("tables", "tables");
-        palabrasReservadas.put("create", "create");
-        palabrasReservadas.put("insert", "insert");
-        palabrasReservadas.put("into", "into");
-        palabrasReservadas.put("update", "update");
-        palabrasReservadas.put("set", "set");
-        palabrasReservadas.put("select", "select");
-        palabrasReservadas.put("delete", "delete");
-        palabrasReservadas.put("drop", "drop");
-        palabrasReservadas.put("show", "show");
-        palabrasReservadas.put("values", "values");
-        palabrasReservadas.put("where", "where");
-        palabrasReservadas.put("and", "and");
-        palabrasReservadas.put("or", "or");
-        palabrasReservadas.put("from", "from");
-    }
+    static String[] sentencias = {
+            "insert",
+            "update",
+            "select",
+            "delete",
+            "create",
+            "drop"
+            //"table"
+    };
 
+    static String[] comandos = {
+            "use",
+            "show tables"
+    };
+
+    static String[] palabrasReservadas = {
+            "where",
+            "from",
+            "set",
+            "values"
+    };
+
+    static String[] operadores = {
+            "and",
+            "or"
+    };
+
+    /*
+    Funcion dedicada a identificar la sentencia de la ingresion del usuario
+     */
+    public static String identificarSentencia(String[] sentencia) throws IncompleteSentenceException {
+
+        for (int i = 0; i < 5; i++) {
+            if (sentencias[i].equals(sentencia[0]))
+            {
+                switch (sentencia[0]) {
+                    case "insert":
+                        if (sentencia[1].equals("into")) {
+                            //Se realiza la sentencia insert
+                            System.out.println("Realizando sentencia insert");
+                        }
+                        break;
+
+                    case "update":
+                        //sentencia update
+                        break;
+
+                    case "select":
+                        //sentencia select
+                        break;
+
+                    case "delete":
+                        //sentencia delete
+                        break;
+
+                    case "create":
+                        if (!sentencia[1].equals("table")) {
+                            throw new IncompleteSentenceException("");
+                        }
+                        break;
+
+                    case "drop":
+                        if (!sentencia[1].equals("table")) {
+                            throw new IncompleteSentenceException("");
+                        }
+                        break;
+                }
+            }
+        }
+
+
+        return "";
+    }
 }

@@ -1,9 +1,5 @@
 package edu.upvictoria.fpoo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 //Confirmar mediante uni testing
 //Un jar autoejecutable
 //Programar mi propio framework de excepciones
@@ -16,11 +12,19 @@ public class App
         /*
         Definicion inicial de mis palabras reservadas y de la cadena en la que el usuario hará el input
          */
-        PalabrasReservadas.definirHashmap();
         String consulta = "";
-
         consulta = ManipularStrings.encontrarCaracter(consulta);
+        String[] consultaSeparada = ManipularStrings.separarConsulta(consulta);
 
-        System.out.println(consulta);
+        for (int i = 0; i < consultaSeparada.length; i++) {
+            System.out.print(consultaSeparada[i]);
+            System.out.print("|");
+        }
+
+        try {
+            System.out.println(PalabrasReservadas.identificarSentencia(consultaSeparada));
+        } catch (Exception IncompleteSenteceException) {
+            System.out.println("Sentencia incompleta :(");
+        }
     }
 }
