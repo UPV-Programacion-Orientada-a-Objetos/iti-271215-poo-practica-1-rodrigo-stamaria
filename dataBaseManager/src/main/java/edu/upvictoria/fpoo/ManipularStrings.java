@@ -19,7 +19,8 @@ public class ManipularStrings {
             System.err.println("Excepcion encontrada al leer la entrada");
         }
 
-        return linea.toLowerCase();
+        return linea;
+        //toLowerCase();
     }
 
     /*
@@ -40,10 +41,21 @@ public class ManipularStrings {
     Funcion dedicada a separar la consulta por palabras siendo los espacios el indicador
      */
     public static String[] separarConsulta(String cadenaConcatenada) {
+        cadenaConcatenada = cadenaConcatenada.substring(0, cadenaConcatenada.length() - 1);
         String[] arrayPalabras = cadenaConcatenada.split(" ");
         for (int i = 0; i < arrayPalabras.length; i++) {
             arrayPalabras[i] = arrayPalabras[i].trim();
         }
         return arrayPalabras;
+    }
+
+    public static String[] lowExcepto(String[] separacion, int excepcion) {
+        for (int i = 0; i < separacion.length; i++) {
+            if(i != excepcion) {
+                separacion[i] = separacion[i].toLowerCase();
+            }
+        }
+
+        return separacion;
     }
 }

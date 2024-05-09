@@ -3,7 +3,12 @@ package edu.upvictoria.fpoo;
 import edu.upvictoria.fpoo.exceptions.IncorrectUseOfSentenceException;
 import edu.upvictoria.fpoo.exceptions.InvalidSentenceException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class PalabrasReservadas {
+
+    File directorio;
 
     static String[] sentencias = {
             "insert",
@@ -34,7 +39,12 @@ public class PalabrasReservadas {
     /*
     Funcion dedicada a identificar la sentencia de la ingresion del usuario
      */
-    public static String identificarSentencia(String[] sentencia) throws IncorrectUseOfSentenceException {
+    public String identificarSentencia(String[] sentencia) {
+
+        if(sentencia[0].equalsIgnoreCase("use")){
+            sentencia = ManipularStrings.lowExcepto(sentencia,1);
+        }
+
         switch (sentencia[0]) {
             case "insert":
                 if (sentencia[1].equals("into")) {
@@ -71,13 +81,19 @@ public class PalabrasReservadas {
                 break;
 
             case "drop":
-                if (!sentencia[1].equals("table")) {
-                    throw new IncorrectUseOfSentenceException("");
+                if (sentencia[1].equals("table")) {
+
+                } else {
+                    throw new IncorrectUseOfSentenceException();
                 }
                 break;
 
             case "use":
-                sentenciaUse(sentencia[1]);
+                try {
+                    sentenciaUse(sentencia[1]);
+                } catch (FileNotFoundException e) {
+                    System.out.println("No existe");
+                }
                 break;
 
             default:
@@ -86,32 +102,38 @@ public class PalabrasReservadas {
         return "";
     }
 
-    private static void sentenciaInsert() {
+    private void sentenciaInsert() {
 
     }
 
-    private static void sentenciaUpdate() {
+    private void sentenciaUpdate() {
 
     }
 
-    private static void sentenciaSelect() {
+    private void sentenciaSelect() {
 
     }
 
-    private static void sentenciaDelete() {
+    private void sentenciaDelete() {
 
     }
 
-    private static void sentenciaCreate() {
+    private void sentenciaCreate() {
 
     }
 
-    private static void sentenciaDrop() {
+    private void sentenciaDrop() {
 
     }
 
-    private static void sentenciaUse(String ruta) {
+    private void sentenciaUse(String ruta) throws FileNotFoundException{
         //buscar la ruta ingresada por el usuario
         //si esta no existe se crea el directorio
+        File directorio = new File(ruta);
+        if (directorio.exists()) {
+            this.directorio = directorio;
+        } else {
+            throw new FileNotFoundException();
+        }
     }
 }

@@ -8,23 +8,27 @@ package edu.upvictoria.fpoo;
 import edu.upvictoria.fpoo.exceptions.InvalidSentenceException;
 import edu.upvictoria.fpoo.exceptions.IncorrectUseOfSentenceException;
 
-public class App
-{
-    public static void main( String[] args )
-    {
+import java.io.FileNotFoundException;
+
+public class App {
+    public static void main( String[] args ) {
+
         /*
         Definicion inicial de mis palabras reservadas y de la cadena en la que el usuario hará el input
          */
         String consulta = "";
+        String ruta = "";
         consulta = ManipularStrings.encontrarCaracter(consulta);
         String[] consultaSeparada = ManipularStrings.separarConsulta(consulta);
 
+        PalabrasReservadas PR = new PalabrasReservadas();
+
         for (int i=0; i<consultaSeparada.length; i++){
-            System.out.println(consultaSeparada[i] + "|");
+            System.out.print(consultaSeparada[i] + "|");
         }
 
         try {
-            System.out.println(PalabrasReservadas.identificarSentencia(consultaSeparada));
+            System.out.println(PR.identificarSentencia(consultaSeparada));
         } catch (IncorrectUseOfSentenceException e) {
             System.out.println("Sentencia errónamente utilizada");
         } catch (InvalidSentenceException e) {
