@@ -5,7 +5,10 @@ package edu.upvictoria.fpoo;
 //Programar mi propio framework de excepciones
 //Cada tabla es cada archivo
 
-public class App 
+import edu.upvictoria.fpoo.exceptions.InvalidSentenceException;
+import edu.upvictoria.fpoo.exceptions.IncorrectUseOfSentenceException;
+
+public class App
 {
     public static void main( String[] args )
     {
@@ -16,15 +19,16 @@ public class App
         consulta = ManipularStrings.encontrarCaracter(consulta);
         String[] consultaSeparada = ManipularStrings.separarConsulta(consulta);
 
-        for (int i = 0; i < consultaSeparada.length; i++) {
-            System.out.print(consultaSeparada[i]);
-            System.out.print("|");
+        for (int i=0; i<consultaSeparada.length; i++){
+            System.out.println(consultaSeparada[i] + "|");
         }
 
         try {
             System.out.println(PalabrasReservadas.identificarSentencia(consultaSeparada));
-        } catch (Exception IncompleteSenteceException) {
-            System.out.println("Sentencia incompleta :(");
+        } catch (IncorrectUseOfSentenceException e) {
+            System.out.println("Sentencia errónamente utilizada");
+        } catch (InvalidSentenceException e) {
+            System.out.println("Sentencia invalida");
         }
     }
 }

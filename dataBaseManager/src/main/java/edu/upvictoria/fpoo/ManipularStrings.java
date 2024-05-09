@@ -46,9 +46,4 @@ public class ManipularStrings {
         }
         return arrayPalabras;
     }
-
-    /*
-    Funcion dedicada a
-     */
-
 }
