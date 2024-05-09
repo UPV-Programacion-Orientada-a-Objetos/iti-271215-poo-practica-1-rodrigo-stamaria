@@ -5,34 +5,47 @@ package edu.upvictoria.fpoo;
 //Programar mi propio framework de excepciones
 //Cada tabla es cada archivo
 
+import edu.upvictoria.fpoo.exceptions.InvalidIngresionException;
 import edu.upvictoria.fpoo.exceptions.InvalidSentenceException;
 import edu.upvictoria.fpoo.exceptions.IncorrectUseOfSentenceException;
 
-import java.io.FileNotFoundException;
+import java.nio.file.FileSystemAlreadyExistsException;
 
 public class App {
     public static void main( String[] args ) {
 
         /*
-        Definicion inicial de mis palabras reservadas y de la cadena en la que el usuario hará el input
+        Definicion de mis variables iniciales
          */
         String consulta = "";
-        String ruta = "";
-        consulta = ManipularStrings.encontrarCaracter(consulta);
-        String[] consultaSeparada = ManipularStrings.separarConsulta(consulta);
+        Sentencias sentencia = new Sentencias();
 
-        PalabrasReservadas PR = new PalabrasReservadas();
+        /*
+        Se pide la consulta hasta que el usuario ingresa ";" y se divide en palabras que son metidas dentro de un array
+         */
+        consulta = ManejarStrings.encontrarPuntoYcoma(consulta);
+        String[] consultaSeparada = ManejarStrings.separarConsulta(consulta);
 
+
+        /*
+        ciclo for temporal que actualmente unicamente sirve para poder ver en consola el resultado de la cadena que ingresemos
+        despues de haber sido procesada por ciertas funciones
+         */
         for (int i=0; i<consultaSeparada.length; i++){
             System.out.print(consultaSeparada[i] + "|");
         }
+        System.out.println("\n");
 
         try {
-            System.out.println(PR.identificarSentencia(consultaSeparada));
+            System.out.println(sentencia.identificarSentencia(consultaSeparada));
+        } catch(FileSystemAlreadyExistsException e) {
+            System.out.println(e.getClass());
         } catch (IncorrectUseOfSentenceException e) {
-            System.out.println("Sentencia errónamente utilizada");
+            System.out.println(e.getClass());
         } catch (InvalidSentenceException e) {
-            System.out.println("Sentencia invalida");
+            System.out.println(e.getClass());
+        } catch (InvalidIngresionException e) {
+            System.out.println(e.getClass());
         }
     }
 }
