@@ -18,7 +18,6 @@ public class ManejarStrings {
         } catch (IOException e) {
             System.err.println("Excepcion encontrada al leer la entrada");
         }
-
         return linea;
     }
 

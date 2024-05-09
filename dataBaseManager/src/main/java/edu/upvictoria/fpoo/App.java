@@ -9,6 +9,7 @@ import edu.upvictoria.fpoo.exceptions.InvalidIngresionException;
 import edu.upvictoria.fpoo.exceptions.InvalidSentenceException;
 import edu.upvictoria.fpoo.exceptions.IncorrectUseOfSentenceException;
 
+import java.io.FileNotFoundException;
 import java.nio.file.FileSystemAlreadyExistsException;
 
 public class App {
@@ -38,7 +39,9 @@ public class App {
 
         try {
             System.out.println(sentencia.identificarSentencia(consultaSeparada));
-        } catch(FileSystemAlreadyExistsException e) {
+        } catch (FileSystemAlreadyExistsException e) {
+            System.out.println(e.getClass());
+        } catch (FileNotFoundException e) {
             System.out.println(e.getClass());
         } catch (IncorrectUseOfSentenceException e) {
             System.out.println(e.getClass());

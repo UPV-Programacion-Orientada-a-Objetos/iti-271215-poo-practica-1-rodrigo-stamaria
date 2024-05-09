@@ -7,6 +7,7 @@ import edu.upvictoria.fpoo.exceptions.InvalidSentenceException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.FileSystemAlreadyExistsException;
+import java.util.ArrayList;
 
 public class Sentencias {
 
@@ -45,7 +46,7 @@ public class Sentencias {
     /*
     Funcion dedicada a identificar la sentencia de la ingresion del usuario
      */
-    public String identificarSentencia(String[] sentencia) {
+    public String identificarSentencia(String[] sentencia) throws FileNotFoundException {
         switch (sentencia[0].toLowerCase()) {
             case "insert":
                 if (sentencia[1].equals("into")) {
@@ -72,7 +73,7 @@ public class Sentencias {
             case "create":
                 if (sentencia[1].toLowerCase().equals("table")) {
                     sentencia[2] = sentencia[2].toUpperCase();
-                    sentenciaCreate(sentencia[2]);
+                    sentenciaCreate(sentencia[2], sentencia);
                 } else {
                     throw new IncorrectUseOfSentenceException();
                 }
@@ -80,17 +81,21 @@ public class Sentencias {
 
             case "drop":
                 if (sentencia[1].toLowerCase().equals("table")) {
-
+                    sentenciaDrop();
                 } else {
                     throw new IncorrectUseOfSentenceException();
                 }
                 break;
 
             case "use":
-                try {
-                    sentenciaUse(sentencia[1]);
-                } catch (FileNotFoundException e) {
-                    System.out.println(e.getClass());
+                sentenciaUse(sentencia[1]);
+                break;
+
+            case "show":
+                if (sentencia[1].toLowerCase().equals("tables")) {
+                    sentenciaShow();
+                } else {
+                    throw new IncorrectUseOfSentenceException();
                 }
                 break;
 
@@ -119,15 +124,38 @@ public class Sentencias {
     /*
     Funcion dedicada a crear una tabla
      */
-    private void sentenciaCreate(String nombreDeTabla) {
-        //verificar que el primer caracter sea "("
+    private void sentenciaCreate(String nombreDeTabla, String[] sentencia) {
         //el nombre de la columna no se verifica
         //validar el tipo de variable de la columna
         //validar si es nula o no
         if (ManejarStrings.diferenteAabecedario(nombreDeTabla) == false) {
             for (File archivo : directorio.listFiles()) {
                 if (!archivo.getName().equals(nombreDeTabla + ".csv")) {
-                    
+                    //verificar con comas
+                    if (sentencia[3].startsWith("(") && sentencia[sentencia.length-1].endsWith(")")) {
+                        int contador = 3;
+                        ArrayList<String> nombreDeColumnas= new ArrayList<>();
+                        ArrayList<String> tiposDeDato= new ArrayList<>();
+                        ArrayList<String> nuloOno= new ArrayList<>();
+                        ArrayList<String> llaves= new ArrayList<>();
+                        do {
+                            nombreDeColumnas.add(sentencia[contador]);
+                            contador++;
+                            tiposDeDato.add(sentencia[contador]);
+                            contador++;
+                            if (sentencia[contador].toLowerCase().equals("not")) {
+                                nuloOno.add("NOT NULL");
+                                contador=+2;
+                            } else if (sentencia[contador].toLowerCase().equals("null")) {
+                                nuloOno.add("NULL");
+                                contador++;
+                            }
+                            //definicion de llaves
+                        } while (contador < sentencia.length);
+                        System.out.println("Funciona!");
+                    } else {
+                        throw new InvalidIngresionException();
+                    }
                 } else {
                     throw new FileSystemAlreadyExistsException();
                 }
@@ -150,6 +178,20 @@ public class Sentencias {
             //this.directorio = directorio;
             System.out.println("\nDUA LIPA");
         } else {
+            throw new FileNotFoundException();
+        }
+    }
+
+    /*
+    Funcion dedicada a mostrar todas las tablas de la base de datos
+     */
+    private void sentenciaShow() throws FileNotFoundException {
+        boolean directorioVacio = true;
+        for (File archivo : directorio.listFiles()) {
+            System.out.println(archivo.getName());
+            directorioVacio = false;
+        }
+        if (directorioVacio) {
             throw new FileNotFoundException();
         }
     }
