@@ -40,11 +40,6 @@ public class PalabrasReservadas {
     Funcion dedicada a identificar la sentencia de la ingresion del usuario
      */
     public String identificarSentencia(String[] sentencia) {
-
-        if(sentencia[0].equalsIgnoreCase("use")){
-            sentencia = ManipularStrings.lowExcepto(sentencia,1);
-        }
-
         switch (sentencia[0]) {
             case "insert":
                 if (sentencia[1].equals("into")) {
@@ -126,9 +121,10 @@ public class PalabrasReservadas {
 
     }
 
+    /*
+    Funcion dedicada a buscar la ruta ingresada por el usuario
+     */
     private void sentenciaUse(String ruta) throws FileNotFoundException{
-        //buscar la ruta ingresada por el usuario
-        //si esta no existe se crea el directorio
         File directorio = new File(ruta);
         if (directorio.exists()) {
             this.directorio = directorio;

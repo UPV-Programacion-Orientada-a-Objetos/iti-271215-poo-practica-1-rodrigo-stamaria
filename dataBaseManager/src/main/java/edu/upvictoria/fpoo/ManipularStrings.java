@@ -20,7 +20,6 @@ public class ManipularStrings {
         }
 
         return linea;
-        //toLowerCase();
     }
 
     /*
@@ -43,12 +42,27 @@ public class ManipularStrings {
     public static String[] separarConsulta(String cadenaConcatenada) {
         cadenaConcatenada = cadenaConcatenada.substring(0, cadenaConcatenada.length() - 1);
         String[] arrayPalabras = cadenaConcatenada.split(" ");
-        for (int i = 0; i < arrayPalabras.length; i++) {
-            arrayPalabras[i] = arrayPalabras[i].trim();
+        if (!"use".equalsIgnoreCase(arrayPalabras[0])) { //Verificar condicion
+            for (int i = 0; i < arrayPalabras.length; i++) {
+                arrayPalabras[i] = arrayPalabras[i].trim().toLowerCase();
+            }
+            System.out.println("Si funciona!");
         }
         return arrayPalabras;
     }
 
+    /*
+    Funcion dedicada a convertir la ingresion del usuario en minisculas dependiendo de la funcion utilizada
+     */
+    /*
+    public static void convertirAminusculas(String[] arrayPalabras) {
+        if (arrayPalabras[0].toLowerCase().equals("use")) {
+
+        }
+    }
+    */
+
+    /*
     public static String[] lowExcepto(String[] separacion, int excepcion) {
         for (int i = 0; i < separacion.length; i++) {
             if(i != excepcion) {
@@ -58,4 +72,5 @@ public class ManipularStrings {
 
         return separacion;
     }
+    */
 }
