@@ -1,4 +1,4 @@
-package edu.upvictoria.fpoo;
+package classes;
 
 import edu.upvictoria.fpoo.exceptions.IncorrectUseOfSentenceException;
 import edu.upvictoria.fpoo.exceptions.InvalidIngresionException;
@@ -127,38 +127,47 @@ public class Sentencias {
     private void sentenciaCreate(String nombreDeTabla, String[] sentencia) {
         //el nombre de la columna no se verifica
         //validar el tipo de variable de la columna
-        //validar si es nula o no
+        boolean tablaExistente = false;
         if (ManejarStrings.diferenteAabecedario(nombreDeTabla) == false) {
             for (File archivo : directorio.listFiles()) {
-                if (!archivo.getName().equals(nombreDeTabla + ".csv")) {
-                    //verificar con comas
-                    if (sentencia[3].startsWith("(") && sentencia[sentencia.length-1].endsWith(")")) {
-                        int contador = 3;
-                        ArrayList<String> nombreDeColumnas= new ArrayList<>();
-                        ArrayList<String> tiposDeDato= new ArrayList<>();
-                        ArrayList<String> nuloOno= new ArrayList<>();
-                        ArrayList<String> llaves= new ArrayList<>();
-                        do {
-                            nombreDeColumnas.add(sentencia[contador]);
-                            contador++;
-                            tiposDeDato.add(sentencia[contador]);
-                            contador++;
-                            if (sentencia[contador].toLowerCase().equals("not")) {
-                                nuloOno.add("NOT NULL");
-                                contador=+2;
-                            } else if (sentencia[contador].toLowerCase().equals("null")) {
-                                nuloOno.add("NULL");
-                                contador++;
-                            }
-                            //definicion de llaves
-                        } while (contador < sentencia.length);
-                        System.out.println("Funciona!");
-                    } else {
-                        throw new InvalidIngresionException();
-                    }
-                } else {
-                    throw new FileSystemAlreadyExistsException();
+                if (archivo.getName().equals(nombreDeTabla + ".csv")) {
+                    tablaExistente = true;
                 }
+            }
+            if (!tablaExistente) {
+                //verificar con comas
+                if (sentencia[3].startsWith("(") && sentencia[sentencia.length-1].endsWith(")")) {
+                    int contador = 3;
+                    ArrayList<String> nombreDeColumnas= new ArrayList<>();
+                    ArrayList<String> tiposDeDato= new ArrayList<>();
+                    ArrayList<String> nuloOno= new ArrayList<>();
+                    ArrayList<String> llaves= new ArrayList<>();
+                    do {
+                        nombreDeColumnas.add(sentencia[contador]);
+                        contador++;
+                        tiposDeDato.add(sentencia[contador]);
+                        contador++;
+                        if (sentencia[contador].toLowerCase().equals("not")) {
+                            nuloOno.add("NOT NULL");
+                            contador=+2;
+                        } else if (sentencia[contador].toLowerCase().equals("null") || sentencia[contador].toLowerCase().equals("null)")) {
+                            nuloOno.add("NULL");
+                            contador++;
+                        }
+                        if (sentencia[contador].toLowerCase().equals("primary")) {
+                            llaves.add("PRIMARY KEY");
+                            contador=+2;
+                        } else if (sentencia[contador].toLowerCase().equals("foreign")) {
+                            llaves.add("FOREIGN KEY");
+                            contador=+2;
+                        }
+                    } while (true);
+                    //System.out.println("Funciona!");
+                } else {
+                    throw new InvalidIngresionException();
+                }
+            } else {
+                throw new FileSystemAlreadyExistsException();
             }
         } else {
             throw new InvalidIngresionException(); //(?) realizar una excepcion extendida de esta en la que se especifique que el nombre de la tabla no es valido

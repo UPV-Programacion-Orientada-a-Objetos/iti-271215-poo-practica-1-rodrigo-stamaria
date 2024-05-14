@@ -1,4 +1,4 @@
-package edu.upvictoria.fpoo;
+package classes;
 
 import java.io.BufferedWriter;
 

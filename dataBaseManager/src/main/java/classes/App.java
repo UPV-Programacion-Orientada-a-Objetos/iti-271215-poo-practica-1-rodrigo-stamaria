@@ -1,4 +1,4 @@
-package edu.upvictoria.fpoo;
+package classes;
 
 //Confirmar mediante uni testing
 //Un jar autoejecutable
