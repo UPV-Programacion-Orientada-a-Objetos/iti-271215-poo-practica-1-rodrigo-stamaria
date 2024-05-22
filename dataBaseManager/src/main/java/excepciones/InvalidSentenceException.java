@@ -1,4 +1,4 @@
-package edu.upvictoria.fpoo.exceptions;
+package excepciones;
 
 public class InvalidSentenceException extends RuntimeException {
     public InvalidSentenceException(String message) {
