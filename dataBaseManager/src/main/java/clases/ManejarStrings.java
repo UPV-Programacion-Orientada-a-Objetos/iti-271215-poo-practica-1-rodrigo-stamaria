@@ -24,7 +24,8 @@ public class ManejarStrings {
     /*
     Funcion dedicada a leer la ingresion del usuario hasta que se encuentre un ";" en ella
      */
-    public static String encontrarPuntoYcoma(String cadenaConcatenada) {
+    public static String encontrarPuntoYcoma() {
+        String cadenaConcatenada = "";
         do {
             cadenaConcatenada = cadenaConcatenada.concat(ManejarStrings.leerLinea()).trim();
             if (!cadenaConcatenada.endsWith(";")) {

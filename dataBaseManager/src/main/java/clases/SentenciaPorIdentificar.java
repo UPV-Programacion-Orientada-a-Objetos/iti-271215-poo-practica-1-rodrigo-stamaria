@@ -26,10 +26,10 @@ public class SentenciaPorIdentificar {
     };
 
     static String[] palabrasReservadas = {
-            "where",
-            "from",
-            "set",
-            "values"
+            "WHERE",
+            "FROM",
+            "SET",
+            "VALUES"
     };
 
     static String[] operadores = {

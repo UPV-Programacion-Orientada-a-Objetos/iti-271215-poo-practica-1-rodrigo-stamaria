@@ -1,34 +1,70 @@
 package clases;
+import com.sun.tools.javac.Main;
+import excepciones.InvalidSentenceException;
 import sentencias.clasePadre.Sentencia;
+
+import java.io.FileNotFoundException;
 
 //Confirmar mediante uni testing
 
 public class App {
-    public static void main( String[] args ) {
-
+    String ruta;
+    public void main( String[] args ) {
         /*
         Definicion de mis variables iniciales:
         consulta inicializa el String que guardará, como su nombre lo indica, la consulta del usuario
         sentenciaPorIdentificar es una variable tipo SentenciaIdentificada, esta se encargará de manejar e identificar la sentencia del usuario
         sentenciaIdentificada es cuando ya sabemos que tipo de sentencia tenemos y por lo tanto se crea un objeto de esta
          */
-        String consulta = "";
-        SentenciaPorIdentificar sentenciaPorIdentificar = new SentenciaPorIdentificar();
+        String consulta; // Necesito encontrar la forma de poder asignar esta variable desde mi funcion en "use"
+        boolean salir = false;
+        SentenciaPorIdentificar sentenciaPorIdentificar;
+        Sentencia sentenciaIdentificada;
 
-        /*
-        Llamada dedicada a identificar que tipo de consulta es la que ingresó el usuario
-         */
-        consulta = ManejarStrings.encontrarPuntoYcoma(consulta);
-        sentenciaPorIdentificar.consulta = consulta;
-        sentenciaPorIdentificar.consultaSeparada = ManejarStrings.separarConsulta(consulta);
+        do {
+            /*
+            Se inicializar la variable de la sentencia que se vaya a identificar
+             */
+            sentenciaPorIdentificar = new SentenciaPorIdentificar();
+            /*
+            Llamada dedicada a identificar que tipo de consulta es la que ingresó el usuario
+             */
+            consulta = ManejarStrings.encontrarPuntoYcoma();
+            sentenciaPorIdentificar.consulta = consulta;
+            sentenciaPorIdentificar.consultaSeparada = ManejarStrings.separarConsulta(consulta);
 
-        /*
-        Se intenta identificar la sentencia, si existe se asigna el tipo a la variable tipo sentenciaPoridentificar, si no se lanza una excepcion
-        se asigna un valor a sentenciaIdentificada dependiendo del resultado de la función crearObjetoDeSentencia
-         */
-        sentenciaPorIdentificar.identificarSentencia();
-        Sentencia sentenciaIdentificada = sentenciaPorIdentificar.crearObjetoDeSentencia();
+            /*
+            Se intenta identificar la sentencia, si existe, el atributo tipo del objeto sentenciaPorIdentificar ahora tiene un valor y el flujo del programa sigue
+             */
+            try {
+                sentenciaPorIdentificar.identificarSentencia();
+            } catch (InvalidSentenceException e) {
+                System.out.println(e.getClass());
+                break;
+            }
+            /*
+            Encontrar una forma en la que esto solo se haga si la sentencia es valida ??
+             */
+            sentenciaIdentificada = sentenciaPorIdentificar.crearObjetoDeSentencia();
 
-        sentenciaIdentificada.comprobarSintaxis();
+            /*
+            Se comprueba la sintaxis de la sentencia una vez ha sido identificada
+             */
+            try {
+                sentenciaIdentificada.comprobarSintaxis();
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getClass());
+                break;
+            }
+
+            /*
+            Se realiza la ccion de la sentencia
+             */
+            try {
+                sentenciaIdentificada.accionSentencia();
+            } catch () {
+
+            }
+        } while (!salir);
     }
 }
