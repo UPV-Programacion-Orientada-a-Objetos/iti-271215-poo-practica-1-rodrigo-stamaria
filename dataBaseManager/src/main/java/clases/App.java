@@ -1,25 +1,26 @@
 package clases;
-import com.sun.tools.javac.Main;
 import excepciones.InvalidSentenceException;
+import sentencias.Use;
 import sentencias.clasePadre.Sentencia;
-
 import java.io.FileNotFoundException;
+import java.io.File;
 
 //Confirmar mediante uni testing
 
 public class App {
-    String ruta;
-    public void main( String[] args ) {
+    public static void main(String[] args ) {
         /*
         Definicion de mis variables iniciales:
         consulta inicializa el String que guardará, como su nombre lo indica, la consulta del usuario
         sentenciaPorIdentificar es una variable tipo SentenciaIdentificada, esta se encargará de manejar e identificar la sentencia del usuario
         sentenciaIdentificada es cuando ya sabemos que tipo de sentencia tenemos y por lo tanto se crea un objeto de esta
+        ruta almacena la ruta en la que el usuario se encuentra trabajando
          */
-        String consulta; // Necesito encontrar la forma de poder asignar esta variable desde mi funcion en "use"
+        String consulta;
         boolean salir = false;
         SentenciaPorIdentificar sentenciaPorIdentificar;
         Sentencia sentenciaIdentificada;
+        File ruta = null;
 
         do {
             /*
@@ -62,9 +63,14 @@ public class App {
              */
             try {
                 sentenciaIdentificada.accionSentencia();
-            } catch () {
-
+                if (sentenciaIdentificada.getClass() == Use.class) {
+                    ruta = ((Use) sentenciaIdentificada).getRuta();
+                }
+            } catch (Exception e) {
+                //se maneja la excepcion
             }
+
+            System.out.println(ruta);
         } while (!salir);
     }
 }

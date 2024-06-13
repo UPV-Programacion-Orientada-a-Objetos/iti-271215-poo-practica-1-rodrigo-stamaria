@@ -24,10 +24,13 @@ public class Use extends Sentencia {
         }
         ruta = rutaAbuscar;
         valida = true;
-        System.out.println("MICHAEL JACKSON");
     }
 
     public void accionSentencia() {
-        //asginar a la variable "ruta" de main el valor de "ruta" de esta funcion
+        this.ruta = ruta;
+    }
+
+    public File getRuta() {
+        return ruta;
     }
 }

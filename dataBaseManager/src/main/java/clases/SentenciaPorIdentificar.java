@@ -72,6 +72,7 @@ public class SentenciaPorIdentificar {
                 sentenciaIdentificada = new CreateTable();
                 break;
             case "DROP":
+                sentenciaIdentificada = new Drop();
                 break;
             case "USE":
                 sentenciaIdentificada = new Use(consulta, consultaSeparada);
