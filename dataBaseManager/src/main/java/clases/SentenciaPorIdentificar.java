@@ -17,12 +17,8 @@ public class SentenciaPorIdentificar {
             "DELETE",
             "CREATE",
             "DROP",
-            "USE"
-    };
-
-    static String[] comandos = {
-            "show",
-            "tables"
+            "USE",
+            "SHOW"
     };
 
     static String[] palabrasReservadas = {
@@ -69,14 +65,14 @@ public class SentenciaPorIdentificar {
             case "DELETE":
                 break;
             case "CREATE":
-                sentenciaIdentificada = new CreateTable();
                 break;
             case "DROP":
-                sentenciaIdentificada = new Drop();
                 break;
             case "USE":
                 sentenciaIdentificada = new Use(consulta, consultaSeparada);
                 break;
+            case "SHOW":
+                sentenciaIdentificada = new ShowTables(consultaSeparada);
         }
         return sentenciaIdentificada;
     }

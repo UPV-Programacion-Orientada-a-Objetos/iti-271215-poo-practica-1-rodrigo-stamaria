@@ -56,6 +56,9 @@ public class App {
             } catch (FileNotFoundException e) {
                 System.out.println(e.getClass());
                 break;
+            } catch (InvalidSentenceException e) {
+                System.out.println(e.getClass());
+                break;
             }
 
             /*
@@ -69,8 +72,6 @@ public class App {
             } catch (Exception e) {
                 //se maneja la excepcion
             }
-
-            System.out.println(ruta);
         } while (!salir);
     }
 }

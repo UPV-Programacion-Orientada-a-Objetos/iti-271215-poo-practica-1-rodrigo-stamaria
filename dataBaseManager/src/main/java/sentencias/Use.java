@@ -1,7 +1,5 @@
 package sentencias;
 
-import clases.App;
-import com.sun.tools.javac.Main;
 import sentencias.clasePadre.Sentencia;
 
 import java.io.*;
@@ -9,7 +7,6 @@ import java.io.*;
 public class Use extends Sentencia {
     String consulta;
     String[] consultaSeparada;
-    boolean valida;
     File ruta;
 
     public Use(String consulta, String[] consultaSeparada) {
@@ -23,7 +20,6 @@ public class Use extends Sentencia {
             throw new FileNotFoundException();
         }
         ruta = rutaAbuscar;
-        valida = true;
     }
 
     public void accionSentencia() {
