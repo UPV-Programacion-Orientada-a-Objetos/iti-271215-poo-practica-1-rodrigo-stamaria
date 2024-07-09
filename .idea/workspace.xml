@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="60eebe5b-ad00-48f7-b6bf-40b1386e785a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/dataBaseManager/src/main/java/edu/upvictoria/fpoo/ManipularCSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataBaseManager/src/main/java/sentencias/Drop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataBaseManager/src/main/java/edu/upvictoria/fpoo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/dataBaseManager/src/main/java/edu/upvictoria/fpoo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataBaseManager/src/main/java/clases/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/dataBaseManager/src/main/java/clases/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataBaseManager/src/main/java/clases/SentenciaPorIdentificar.java" beforeDir="false" afterPath="$PROJECT_DIR$/dataBaseManager/src/main/java/clases/SentenciaPorIdentificar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataBaseManager/src/main/java/sentencias/Use.java" beforeDir="false" afterPath="$PROJECT_DIR$/dataBaseManager/src/main/java/sentencias/Use.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +50,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -69,6 +70,8 @@
       <workItem from="1714940972246" duration="80000" />
       <workItem from="1714986116808" duration="29000" />
       <workItem from="1714997963303" duration="96000" />
+      <workItem from="1716142594158" duration="12000" />
+      <workItem from="1717783308842" duration="85000" />
     </task>
     <servers />
   </component>

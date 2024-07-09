@@ -2,12 +2,15 @@ package sentencias;
 
 import sentencias.clasePadre.Sentencia;
 
-public class Drop extends Sentencia {
-    public void comprobarSintaxis() {
+import java.io.FileNotFoundException;
 
+public class Drop extends Sentencia {
+
+    public Drop (String[] consultaSeparada) {
+        super(consultaSeparada);
     }
 
-    public void accionSentencia() {
-
+    public void comprobarSintaxis() throws FileNotFoundException {
+        System.out.println("Comprobar Sintaxis");
     }
 }

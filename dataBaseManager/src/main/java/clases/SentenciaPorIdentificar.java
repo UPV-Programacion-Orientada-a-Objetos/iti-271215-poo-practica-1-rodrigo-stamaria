@@ -54,7 +54,7 @@ public class SentenciaPorIdentificar {
     Funcion dedicada a crear un objeto dependiendo del tipo de sentencia que el usuario este realizando
      */
     public Sentencia crearObjetoDeSentencia() {
-        Sentencia sentenciaIdentificada = new Sentencia();
+        Sentencia sentenciaIdentificada = null;
         switch (tipo) {
             case "INSERT":
                 break;
@@ -67,9 +67,10 @@ public class SentenciaPorIdentificar {
             case "CREATE":
                 break;
             case "DROP":
+                //sentenciaIdentificada = new Drop(consultaSeparada);
                 break;
             case "USE":
-                sentenciaIdentificada = new Use(consulta, consultaSeparada);
+                sentenciaIdentificada = new Use(consultaSeparada);
                 break;
             case "SHOW":
                 sentenciaIdentificada = new ShowTables(consultaSeparada);
