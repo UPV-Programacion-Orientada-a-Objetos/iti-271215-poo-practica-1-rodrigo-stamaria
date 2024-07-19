@@ -14,7 +14,6 @@ public class ShowTables extends Sentencia {
     }
 
     public void accionSentencia() {
-        System.out.println("elias");
         //Aqui se deben imprimir cada una de las tablas que se encuentren dentro de la base de datos
     }
 }

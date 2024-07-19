@@ -4,19 +4,19 @@ import java.io.*;
 
 public class Use extends Sentencia {
     File ruta;
+    File rutaAbuscar = new File(consultaSeparada[1]);
 
     public Use(String[] consultaSeparada) { super(consultaSeparada); }
 
     public void comprobarSintaxis() throws FileNotFoundException {
-        File rutaAbuscar = new File(consultaSeparada[1]);
         if (!rutaAbuscar.exists()) {
             throw new FileNotFoundException();
         }
-        ruta = rutaAbuscar;
     }
 
     public void accionSentencia() {
-        this.ruta = ruta;
+        ruta = rutaAbuscar;
+        //Una vez definida la ruta, se parsean las tablas para meterlas al codigo y poder menearlas aqui dentro
     }
 
     public File getRuta() {

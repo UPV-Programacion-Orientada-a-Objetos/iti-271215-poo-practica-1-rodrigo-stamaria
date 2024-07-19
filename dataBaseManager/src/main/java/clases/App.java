@@ -1,5 +1,6 @@
 package clases;
 import excepciones.InvalidSentenceException;
+import sentencias.CreateTable;
 import sentencias.Use;
 import sentencias.clasePadre.Sentencia;
 import java.io.FileNotFoundException;
@@ -9,6 +10,7 @@ import java.io.File;
 
 public class App {
     public static void main(String[] args ) {
+
         /*
         Definicion de mis variables iniciales:
         consulta inicializa el String que guardará, como su nombre lo indica, la consulta del usuario
@@ -21,6 +23,8 @@ public class App {
         SentenciaPorIdentificar sentenciaPorIdentificar;
         Sentencia sentenciaIdentificada;
         File ruta = null;
+
+        //(!) PARSEAR LOS CSV PARA METERLOS DENTRO DEL PROGRAMA
 
         do {
             /*
@@ -47,6 +51,9 @@ public class App {
             Encontrar una forma en la que esto solo se haga si la sentencia es valida ??
              */
             sentenciaIdentificada = sentenciaPorIdentificar.crearObjetoDeSentencia();
+            if (sentenciaIdentificada.getClass() == CreateTable.class) {
+                ((CreateTable) sentenciaIdentificada).setRuta(ruta);
+            }
 
             /*
             Se comprueba la sintaxis de la sentencia una vez ha sido identificada

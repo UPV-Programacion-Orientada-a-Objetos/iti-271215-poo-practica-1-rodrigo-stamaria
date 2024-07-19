@@ -4,11 +4,14 @@ import excepciones.*;
 import sentencias.*;
 import sentencias.clasePadre.Sentencia;
 
+import java.io.File;
+
 public class SentenciaPorIdentificar {
 
     String consulta;
-    String[] consultaSeparada;
     String tipo;
+    File ruta;
+    String[] consultaSeparada;
 
     static String[] sentencias = {
             "INSERT",
@@ -29,8 +32,8 @@ public class SentenciaPorIdentificar {
     };
 
     static String[] operadores = {
-            "and",
-            "or"
+            "AND",
+            "OR"
     };
 
     /*
@@ -57,6 +60,7 @@ public class SentenciaPorIdentificar {
         Sentencia sentenciaIdentificada = null;
         switch (tipo) {
             case "INSERT":
+                sentenciaIdentificada = new Insert(consultaSeparada);
                 break;
             case "UPDATE":
                 break;
@@ -65,6 +69,7 @@ public class SentenciaPorIdentificar {
             case "DELETE":
                 break;
             case "CREATE":
+                sentenciaIdentificada = new CreateTable(consultaSeparada, consulta);
                 break;
             case "DROP":
                 //sentenciaIdentificada = new Drop(consultaSeparada);

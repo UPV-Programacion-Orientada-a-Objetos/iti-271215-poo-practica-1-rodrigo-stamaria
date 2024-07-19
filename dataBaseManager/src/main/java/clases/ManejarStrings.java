@@ -18,6 +18,7 @@ public class ManejarStrings {
         } catch (IOException e) {
             System.err.println("Excepcion encontrada al leer la entrada");
         }
+
         return linea;
     }
 
@@ -28,10 +29,10 @@ public class ManejarStrings {
         String cadenaConcatenada = "";
         do {
             cadenaConcatenada = cadenaConcatenada.concat(ManejarStrings.leerLinea()).trim();
-            if (!cadenaConcatenada.endsWith(";")) {
+            if (!cadenaConcatenada.contains(";")) {
                 cadenaConcatenada = cadenaConcatenada.concat(" ");
             }
-        } while (!cadenaConcatenada.endsWith(";"));
+        } while (!cadenaConcatenada.contains(";"));
 
         return cadenaConcatenada;
     }
