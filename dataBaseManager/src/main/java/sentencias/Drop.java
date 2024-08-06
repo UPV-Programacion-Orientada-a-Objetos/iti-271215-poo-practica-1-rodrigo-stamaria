@@ -4,11 +4,12 @@ import excepciones.InvalidSentenceException;
 import sentencias.clasePadre.Sentencia;
 
 import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Drop extends Sentencia {
 
-    Drop (String[] consultaSeparada) {
-        super(consultaSeparada);
+    Drop (String[] consultaSeparada, File ruta) {
+        super(consultaSeparada, ruta);
     }
 
     public void comprobarSintaxis() throws FileNotFoundException {

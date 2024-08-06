@@ -1,11 +1,15 @@
 package sentencias;
 import sentencias.clasePadre.Sentencia;
 import excepciones.InvalidSentenceException;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ShowTables extends Sentencia {
 
-    public ShowTables(String[] consultaSeparada) { super(consultaSeparada); }
+    public ShowTables(String[] consultaSeparada, File ruta) {
+        super(consultaSeparada, ruta);
+    }
 
     public void comprobarSintaxis() throws FileNotFoundException {
         if (!consultaSeparada[1].equalsIgnoreCase("TABLES")) {
@@ -14,7 +18,11 @@ public class ShowTables extends Sentencia {
     }
 
     public void accionSentencia() {
-        //Aqui se deben imprimir cada una de las tablas que se encuentren dentro de la base de datos
+        File[] tablas = ruta.listFiles();
+
+        for (File tabla : tablas) {
+            System.out.println(tabla.getName());
+        }
     }
 }
 

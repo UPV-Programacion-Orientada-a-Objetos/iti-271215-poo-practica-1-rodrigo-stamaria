@@ -1,28 +1,29 @@
 package sentencias;
+import excepciones.ExistentComponentException;
 import excepciones.InvalidSentenceException;
 import sentencias.clasePadre.Sentencia;
 
 import java.io.File;
 
 public class CreateTable extends Sentencia {
-    String consulta;
     String datosDeTabla = "";
-    File ruta;
 
-    public CreateTable(String[] consultaSeparada, String consulta) {
-        super(consultaSeparada);
-        this.consulta = consulta;
+    public CreateTable(String[] consultaSeparada, File ruta) {
+        super(consultaSeparada, ruta);
     }
 
-    public void setRuta(File ruta) { this.ruta = ruta; }
-
     public void comprobarSintaxis() {
+        File[] tablas = ruta.listFiles();
+
         if (!consultaSeparada[1].equalsIgnoreCase("TABLE")) {
             throw new InvalidSentenceException();
         }
 
-        //Aqui se debe comprobar que el nomnbre de la tabla no esté repetido
-        //Mediante un ciclo for recorrer mi array de tablas
+        for (File tabla : tablas) {
+            if (tabla.getName().equalsIgnoreCase(consultaSeparada[2].concat(".csv"))) {
+                throw new ExistentComponentException();
+            }
+        }
 
         for (int i=3; i<consultaSeparada.length; i++) {
             datosDeTabla = datosDeTabla.concat(consultaSeparada[i] + " ");
@@ -36,7 +37,7 @@ public class CreateTable extends Sentencia {
         }
 
         for (int i=0; i<separacionPorParentesis.length; i++) {
-            //En esta seccion se debe comprobar la sintaxis de cada una de las columnas de la tabla
+            //En esta seccion se debe comprobar la sintaxis de cada una de las columnas de la tabla (?)
         }
     }
 

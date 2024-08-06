@@ -2,11 +2,12 @@ package sentencias;
 
 import excepciones.InvalidSentenceException;
 import sentencias.clasePadre.Sentencia;
+import java.io.File;
 
 public class Update extends Sentencia{
 
-    public Update (String[] consultaSeparada) {
-        super(consultaSeparada);
+    public Update (String[] consultaSeparada, File ruta) {
+        super(consultaSeparada, ruta);
     }
 
     public void comprobarSintaxis() {

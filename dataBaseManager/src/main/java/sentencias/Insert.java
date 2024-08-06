@@ -5,11 +5,12 @@ import sentencias.clasePadre.Sentencia;
 import java.io.FileNotFoundException;
 
 import excepciones.InvalidSentenceException;
+import java.io.File;
 
 public class Insert extends Sentencia {
 
-    public Insert (String[] consultaSeparada) {
-        super(consultaSeparada);
+    public Insert (String[] consultaSeparada, File ruta) {
+        super(consultaSeparada, ruta);
     }
 
     public void comprobarSintaxis() throws FileNotFoundException {

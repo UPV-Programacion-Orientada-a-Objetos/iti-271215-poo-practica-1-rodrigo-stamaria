@@ -60,7 +60,7 @@ public class SentenciaPorIdentificar {
         Sentencia sentenciaIdentificada = null;
         switch (tipo) {
             case "INSERT":
-                sentenciaIdentificada = new Insert(consultaSeparada);
+                sentenciaIdentificada = new Insert(consultaSeparada, ruta);
                 break;
             case "UPDATE":
                 break;
@@ -69,16 +69,16 @@ public class SentenciaPorIdentificar {
             case "DELETE":
                 break;
             case "CREATE":
-                sentenciaIdentificada = new CreateTable(consultaSeparada, consulta);
+                sentenciaIdentificada = new CreateTable(consultaSeparada, ruta);
                 break;
             case "DROP":
                 //sentenciaIdentificada = new Drop(consultaSeparada);
                 break;
             case "USE":
-                sentenciaIdentificada = new Use(consultaSeparada);
+                sentenciaIdentificada = new Use(consultaSeparada, ruta);
                 break;
             case "SHOW":
-                sentenciaIdentificada = new ShowTables(consultaSeparada);
+                sentenciaIdentificada = new ShowTables(consultaSeparada, ruta);
         }
         return sentenciaIdentificada;
     }

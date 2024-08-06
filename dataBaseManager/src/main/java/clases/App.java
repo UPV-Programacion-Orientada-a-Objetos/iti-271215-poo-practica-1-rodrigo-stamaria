@@ -1,6 +1,8 @@
 package clases;
+import excepciones.ExistentComponentException;
 import excepciones.InvalidSentenceException;
 import sentencias.CreateTable;
+import sentencias.ShowTables;
 import sentencias.Use;
 import sentencias.clasePadre.Sentencia;
 import java.io.FileNotFoundException;
@@ -10,7 +12,6 @@ import java.io.File;
 
 public class App {
     public static void main(String[] args ) {
-
         /*
         Definicion de mis variables iniciales:
         consulta inicializa el String que guardará, como su nombre lo indica, la consulta del usuario
@@ -24,7 +25,8 @@ public class App {
         Sentencia sentenciaIdentificada;
         File ruta = null;
 
-        //(!) PARSEAR LOS CSV PARA METERLOS DENTRO DEL PROGRAMA
+        //(!?) PARSEAR LOS CSV PARA METERLOS DENTRO DEL PROGRAMA
+        //(!?) UN ARRAY DE MATRICES DINÁMICO
 
         do {
             /*
@@ -37,6 +39,7 @@ public class App {
             consulta = ManejarStrings.encontrarPuntoYcoma();
             sentenciaPorIdentificar.consulta = consulta;
             sentenciaPorIdentificar.consultaSeparada = ManejarStrings.separarConsulta(consulta);
+            sentenciaPorIdentificar.ruta = ruta;
 
             /*
             Se intenta identificar la sentencia, si existe, el atributo tipo del objeto sentenciaPorIdentificar ahora tiene un valor y el flujo del programa sigue
@@ -51,9 +54,7 @@ public class App {
             Encontrar una forma en la que esto solo se haga si la sentencia es valida ??
              */
             sentenciaIdentificada = sentenciaPorIdentificar.crearObjetoDeSentencia();
-            if (sentenciaIdentificada.getClass() == CreateTable.class) {
-                ((CreateTable) sentenciaIdentificada).setRuta(ruta);
-            }
+            //Dar valor de ruta a sentenciaIdentificada
 
             /*
             Se comprueba la sintaxis de la sentencia una vez ha sido identificada
@@ -64,6 +65,9 @@ public class App {
                 System.out.println(e.getClass());
                 break;
             } catch (InvalidSentenceException e) {
+                System.out.println(e.getClass());
+                break;
+            } catch (ExistentComponentException e) {
                 System.out.println(e.getClass());
                 break;
             }

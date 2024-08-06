@@ -3,11 +3,12 @@ import excepciones.InvalidSentenceException;
 import sentencias.clasePadre.Sentencia;
 
 import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Delete extends Sentencia{
 
-    public Delete (String[] consultaSeparada) {
-        super(consultaSeparada);
+    public Delete (String[] consultaSeparada, File ruta) {
+        super(consultaSeparada, ruta);
     }
 
     //(!) PROBABLEMENTE SE TENGA QUE CAMBUIAR EL NOMBRE DE EXCEPCION CUANDO LA SINTAXIS NO ES CORRECTA
