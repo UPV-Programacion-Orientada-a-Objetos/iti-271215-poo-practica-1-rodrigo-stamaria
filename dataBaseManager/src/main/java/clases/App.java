@@ -1,5 +1,6 @@
 package clases;
 import excepciones.ExistentComponentException;
+import excepciones.InexistentComponentException;
 import excepciones.InvalidSentenceException;
 import sentencias.CreateTable;
 import sentencias.ShowTables;
@@ -24,9 +25,6 @@ public class App {
         SentenciaPorIdentificar sentenciaPorIdentificar;
         Sentencia sentenciaIdentificada;
         File ruta = null;
-
-        //(!?) PARSEAR LOS CSV PARA METERLOS DENTRO DEL PROGRAMA
-        //(!?) UN ARRAY DE MATRICES DINÁMICO
 
         do {
             /*
@@ -54,7 +52,6 @@ public class App {
             Encontrar una forma en la que esto solo se haga si la sentencia es valida ??
              */
             sentenciaIdentificada = sentenciaPorIdentificar.crearObjetoDeSentencia();
-            //Dar valor de ruta a sentenciaIdentificada
 
             /*
             Se comprueba la sintaxis de la sentencia una vez ha sido identificada
@@ -70,6 +67,8 @@ public class App {
             } catch (ExistentComponentException e) {
                 System.out.println(e.getClass());
                 break;
+            } catch (InexistentComponentException e) {
+                System.out.println(e.getClass());
             }
 
             /*
