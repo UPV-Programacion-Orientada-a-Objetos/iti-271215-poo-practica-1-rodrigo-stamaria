@@ -63,6 +63,7 @@ public class SentenciaPorIdentificar {
                 sentenciaIdentificada = new Insert(consultaSeparada, ruta);
                 break;
             case "UPDATE":
+                sentenciaIdentificada = new Update(consultaSeparada, ruta);
                 break;
             case "SELECT":
                 sentenciaIdentificada = new Select(consultaSeparada, ruta);

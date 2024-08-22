@@ -25,6 +25,11 @@ public class Where extends Sentencia {
                 condicion = condicion.concat(consultaSeparada[i] + " ");
             }
         }
+        if (tipo.equals("UPDATE")) {
+            for (int i=6; i<consultaSeparada.length; i++) {
+                condicion = condicion.concat(consultaSeparada[i] + " ");
+            }
+        }
         condicion = condicion.replace("(", "").replace(")", "");
         if (condicion.contains("=")) {
             columna = condicion.substring(0, condicion.indexOf("=")).trim();
@@ -61,18 +66,6 @@ public class Where extends Sentencia {
             busqueda = condicion.substring(condicion.indexOf("=")+1, condicion.length()-1).trim();
             operador = "!=";
         }
-
-        switch (tipo) {
-            case "DELETE":
-                //ManipularCSV.encontrarLineaDelete(ruta, consultaSeparada[2], columna, busqueda, operador);
-                break;
-
-            case "UPDATE":
-                break;
-
-            case "SELECT":
-                break;
-        }
     }
 
     public void accionSentencia() {
@@ -82,10 +75,11 @@ public class Where extends Sentencia {
 
         switch (tipo) {
             case "DELETE":
-                ManipularCSV.encontrarLineaDelete(ruta, consultaSeparada[2], columna, busqueda);
+                ManipularCSV.encontrarLineaDelete(ruta, consultaSeparada[2], columna, busqueda, operador);
                 break;
 
             case "UPDATE":
+                ManipularCSV.encontrarLineaUpdate(ruta, consultaSeparada[1], consultaSeparada[3], consultaSeparada[5], consultaSeparada[7], operador,consultaSeparada[9]);
                 break;
 
             case "SELECT":

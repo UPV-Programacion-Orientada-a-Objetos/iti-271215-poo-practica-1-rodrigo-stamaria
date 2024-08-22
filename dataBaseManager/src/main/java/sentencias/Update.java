@@ -1,5 +1,6 @@
 package sentencias;
 
+import excepciones.InexistentComponentException;
 import excepciones.InvalidSentenceException;
 import sentencias.clasePadre.Sentencia;
 import java.io.File;
@@ -11,22 +12,41 @@ public class Update extends Sentencia{
     }
 
     public void comprobarSintaxis() {
+        File[] tablas = ruta.listFiles();
+        Boolean encontrado = false;
 
-        //Aqui se comprueba que el nombre de la tabla ingresada sea existente dentro de la base de datos
+        for (File tabla : tablas) {
+            if (tabla.getName().equalsIgnoreCase(consultaSeparada[1].concat(".csv"))) {
+                encontrado = true;
+            }
+        }
+
+        if (!encontrado || tablas == null) {
+            throw new InexistentComponentException();
+        }
 
         if (!consultaSeparada[2].equalsIgnoreCase("SET")) {
             throw new InvalidSentenceException();
         }
 
-        //Se comprueba que las columnas ingresadas sean existentes
+        String columnaAactualizar = consultaSeparada[3];
+        String actualizacion = consultaSeparada[5];
 
-        //Se comprueba que el WHERE esté bien implementado
-
-        //Condicion del WHERE
+        String columnaCondicion = consultaSeparada[7];
+        String condicion = consultaSeparada[9];
     }
 
     public void accionSentencia() {
-        System.out.println("AccionSentencia Update");
-        //Se actualiza la columna requerida
+        Where where = new Where(consultaSeparada, ruta, "UPDATE");
+        try {
+            where.comprobarSintaxis();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            where.accionSentencia();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

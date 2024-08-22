@@ -254,33 +254,25 @@ public class ManipularCSV {
 
                             case ">=":
                                 if (Integer.parseInt(lineas[indicadorColumnas].trim()) >= Integer.parseInt(busqueda)) {
-                                    for (int j=0; j<lineas.length; j++) {
-                                        System.out.print(lineas[j] + "||");
-                                    }
+                                    System.out.println(lineas[indicadorSeleccion]);
                                 }
                                 break;
 
                             case "<":
                                 if (Integer.parseInt(lineas[indicadorColumnas].trim()) < Integer.parseInt(busqueda)) {
-                                    for (int j=0; j<lineas.length; j++) {
-                                        System.out.print(lineas[j] + "||");
-                                    }
+                                    System.out.println(lineas[indicadorSeleccion]);
                                 }
                                 break;
 
                             case "<=":
                                 if (Integer.parseInt(lineas[indicadorColumnas].trim()) <= Integer.parseInt(busqueda)) {
-                                    for (int j=0; j<lineas.length; j++) {
-                                        System.out.print(lineas[j] + "||");
-                                    }
+                                    System.out.println(lineas[indicadorSeleccion]);
                                 }
                                 break;
 
                             case "<>", "!=":
                                 if (Integer.parseInt(lineas[indicadorColumnas].trim()) != Integer.parseInt(busqueda)) {
-                                    for (int j=0; j<lineas.length; j++) {
-                                        System.out.print(lineas[j] + "||");
-                                    }
+                                    System.out.println(lineas[indicadorSeleccion]);
                                 }
                                 break;
                         }
@@ -295,7 +287,207 @@ public class ManipularCSV {
         }
     }
 
-    public static void encontrarLineaDelete (File rutaDeTabla, String nombreDeTabla, String columna, String busqueda) {
-        
+    public static void encontrarLineaDelete (File rutaDeTabla, String nombreDeTabla, String columna, String busqueda, String operador) {
+        File FileNombreDeTabla = new File(rutaDeTabla + "/" + nombreDeTabla.toUpperCase() + ".csv");
+        String linea;
+        String[] lineas;
+        int indicadorColumnas = 0;
+        int contadorAuxiliar = 0;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FileNombreDeTabla));
+            while ((linea = br.readLine()) != null) {
+                lineas = linea.split(",");
+                for (int i=0; i<lineas.length; i++) {
+                    if (lineas[i].trim().equals(columna)) {
+                        indicadorColumnas = i;
+                        break;
+                    }
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Archivo no encontrado");
+        }
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FileNombreDeTabla));
+            while ((linea = br.readLine()) != null) {
+                lineas = linea.split(",");
+                if (contadorAuxiliar != 0) {
+                    switch (operador) {
+                        case "=":
+                            if (lineas[indicadorColumnas].trim().equals(busqueda)) {
+                                borrarLinea(contadorAuxiliar, nombreDeTabla, rutaDeTabla);
+                            }
+                            break;
+
+                        case ">":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) > Integer.parseInt(busqueda)) {
+                                borrarLinea(contadorAuxiliar, nombreDeTabla, rutaDeTabla);
+                            }
+                            break;
+
+                        case ">=":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) >= Integer.parseInt(busqueda)) {
+                                borrarLinea(contadorAuxiliar, nombreDeTabla, rutaDeTabla);
+                            }
+                            break;
+
+                        case "<":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) < Integer.parseInt(busqueda)) {
+                                borrarLinea(contadorAuxiliar, nombreDeTabla, rutaDeTabla);
+                            }
+                            break;
+
+                        case "<=":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) <= Integer.parseInt(busqueda)) {
+                                borrarLinea(contadorAuxiliar, nombreDeTabla, rutaDeTabla);
+                            }
+                            break;
+
+                        case "<>", "!=":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) != Integer.parseInt(busqueda)) {
+                                borrarLinea(contadorAuxiliar, nombreDeTabla, rutaDeTabla);
+                            }
+                            break;
+                    }
+                }
+                System.out.println();
+                contadorAuxiliar++;
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Archivo no encontrado");
+        }
+    }
+
+    public static void borrarLinea(int numeroDeLinea, String nombreDeTabla, File ruta) {
+        File archivo = new File(ruta + "/" + nombreDeTabla.toUpperCase() + ".csv");
+        File temp = new File(ruta + "temporal.csv");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo));
+             PrintWriter pw = new PrintWriter(new FileWriter(temp))) {
+
+            String linea;
+            int numeroLineaActual = 0;
+
+            while ((linea = br.readLine()) != null) {
+                if (numeroLineaActual != numeroDeLinea) {
+                    pw.println(linea);
+                }
+                numeroLineaActual++;
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error al procesar el archivo: " + e.getMessage());
+        }
+
+        if (archivo.delete()) {
+            temp.renameTo(archivo);
+        } else {
+            System.err.println("No se pudo eliminar el archivo original.");
+        }
+    }
+
+    public static void encontrarLineaUpdate (File rutaDeTabla, String nombreDeTabla, String columnaAactualizar, String actualizacion, String columnaCondicion, String operador, String condicion) {
+        File FileNombreDeTabla = new File(rutaDeTabla + "/" + nombreDeTabla.toUpperCase() + ".csv");
+        String linea;
+        String[] lineas;
+        int indicadorColumnas = 0;
+        int contadorAuxiliar = 0;
+        int indicadorSeleccion = 0;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FileNombreDeTabla));
+            while ((linea = br.readLine()) != null) {
+                lineas = linea.split(",");
+                for (int i=0; i<lineas.length; i++) {
+                    if (lineas[i].trim().equals(columnaCondicion)) {
+                        indicadorColumnas = i;
+                        break;
+                    }
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Archivo no encontrado");
+        }
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FileNombreDeTabla));
+            while ((linea = br.readLine()) != null) {
+                lineas = linea.split(",");
+                for (int i=0; i<lineas.length; i++) {
+                    if (lineas[i].trim().equals(columnaAactualizar)) {
+                        indicadorSeleccion = i;
+                        break;
+                    }
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Archivo no encontrado");
+        }
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FileNombreDeTabla));
+            while ((linea = br.readLine()) != null) {
+                lineas = linea.split(",");
+                if (contadorAuxiliar != 0) {
+                    switch (operador) {
+                        case "=":
+                            for (int i=0; i<lineas.length; i++) {
+                                if (lineas[i].trim().equals(condicion)) {
+                                    System.out.println(lineas[indicadorSeleccion]);
+                                }
+                            }
+                            break;
+
+                        case ">":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) > Integer.parseInt(condicion)) {
+                                System.out.println(lineas[indicadorSeleccion]);
+                            }
+                            break;
+
+                        case ">=":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) >= Integer.parseInt(condicion)) {
+                                for (int j=0; j<lineas.length; j++) {
+                                    System.out.print(lineas[j] + "||");
+                                }
+                            }
+                            break;
+
+                        case "<":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) < Integer.parseInt(condicion)) {
+                                for (int j=0; j<lineas.length; j++) {
+                                    System.out.print(lineas[j] + "||");
+                                }
+                            }
+                            break;
+
+                        case "<=":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) <= Integer.parseInt(condicion)) {
+                                for (int j=0; j<lineas.length; j++) {
+                                    System.out.print(lineas[j] + "||");
+                                }
+                            }
+                            break;
+
+                        case "<>", "!=":
+                            if (Integer.parseInt(lineas[indicadorColumnas].trim()) != Integer.parseInt(condicion)) {
+                                for (int j=0; j<lineas.length; j++) {
+                                    System.out.print(lineas[j] + "||");
+                                }
+                            }
+                            break;
+                    }
+                }
+                System.out.println();
+                contadorAuxiliar++;
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Archivo no encontrado");
+        }
     }
 }
