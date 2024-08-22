@@ -438,46 +438,38 @@ public class ManipularCSV {
                         case "=":
                             for (int i=0; i<lineas.length; i++) {
                                 if (lineas[i].trim().equals(condicion)) {
-                                    System.out.println(lineas[indicadorSeleccion]);
+                                    modificarLinea(lineas[indicadorSeleccion], contadorAuxiliar, nombreDeTabla, actualizacion, columnaAactualizar, rutaDeTabla);
                                 }
                             }
                             break;
 
                         case ">":
                             if (Integer.parseInt(lineas[indicadorColumnas].trim()) > Integer.parseInt(condicion)) {
-                                System.out.println(lineas[indicadorSeleccion]);
+                                modificarLinea(lineas[indicadorSeleccion], contadorAuxiliar, nombreDeTabla, actualizacion, columnaAactualizar, rutaDeTabla);
                             }
                             break;
 
                         case ">=":
                             if (Integer.parseInt(lineas[indicadorColumnas].trim()) >= Integer.parseInt(condicion)) {
-                                for (int j=0; j<lineas.length; j++) {
-                                    System.out.print(lineas[j] + "||");
-                                }
+                                modificarLinea(lineas[indicadorSeleccion], contadorAuxiliar, nombreDeTabla, actualizacion, columnaAactualizar, rutaDeTabla);
                             }
                             break;
 
                         case "<":
                             if (Integer.parseInt(lineas[indicadorColumnas].trim()) < Integer.parseInt(condicion)) {
-                                for (int j=0; j<lineas.length; j++) {
-                                    System.out.print(lineas[j] + "||");
-                                }
+                                modificarLinea(lineas[indicadorSeleccion], contadorAuxiliar, nombreDeTabla, actualizacion, columnaAactualizar, rutaDeTabla);
                             }
                             break;
 
                         case "<=":
                             if (Integer.parseInt(lineas[indicadorColumnas].trim()) <= Integer.parseInt(condicion)) {
-                                for (int j=0; j<lineas.length; j++) {
-                                    System.out.print(lineas[j] + "||");
-                                }
+                                modificarLinea(lineas[indicadorSeleccion], contadorAuxiliar, nombreDeTabla, actualizacion, columnaAactualizar, rutaDeTabla);
                             }
                             break;
 
                         case "<>", "!=":
                             if (Integer.parseInt(lineas[indicadorColumnas].trim()) != Integer.parseInt(condicion)) {
-                                for (int j=0; j<lineas.length; j++) {
-                                    System.out.print(lineas[j] + "||");
-                                }
+                                modificarLinea(lineas[indicadorSeleccion], contadorAuxiliar, nombreDeTabla, actualizacion, columnaAactualizar, rutaDeTabla);
                             }
                             break;
                     }
@@ -488,6 +480,35 @@ public class ManipularCSV {
             br.close();
         } catch (Exception e) {
             System.out.println("Archivo no encontrado");
+        }
+    }
+
+    public static void modificarLinea (String valorOg, int numeroDeLinea, String nombreDeTabla, String modificacion, String dondeSeActualiza, File ruta) {
+        File archivo = new File(ruta + "/" + nombreDeTabla.toUpperCase() + ".csv");
+        File temp = new File(ruta + "temporal.csv");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo));
+             PrintWriter pw = new PrintWriter(new FileWriter(temp))) {
+
+            String linea;
+            int numeroLineaActual = 0;
+
+            while ((linea = br.readLine()) != null) {
+                if (numeroLineaActual == numeroDeLinea) {
+                    linea = linea.replace(valorOg, modificacion);
+                }
+                pw.println(linea);
+                numeroLineaActual++;
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error al procesar el archivo: " + e.getMessage());
+        }
+
+        if (archivo.delete()) {
+            temp.renameTo(archivo);
+        } else {
+            System.err.println("No se pudo eliminar el archivo original.");
         }
     }
 }
