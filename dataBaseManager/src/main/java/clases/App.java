@@ -2,8 +2,6 @@ package clases;
 import excepciones.ExistentComponentException;
 import excepciones.InexistentComponentException;
 import excepciones.InvalidSentenceException;
-import sentencias.CreateTable;
-import sentencias.ShowTables;
 import sentencias.Use;
 import sentencias.clasePadre.Sentencia;
 import java.io.FileNotFoundException;
@@ -80,7 +78,7 @@ public class App {
                     ruta = ((Use) sentenciaIdentificada).getRuta();
                 }
             } catch (Exception e) {
-                //se maneja la excepcion
+                System.out.println(e.getClass());
             }
         } while (!salir);
     }

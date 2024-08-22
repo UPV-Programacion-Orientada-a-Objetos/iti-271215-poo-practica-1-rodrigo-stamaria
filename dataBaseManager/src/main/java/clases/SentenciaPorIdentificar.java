@@ -65,8 +65,10 @@ public class SentenciaPorIdentificar {
             case "UPDATE":
                 break;
             case "SELECT":
+                sentenciaIdentificada = new Select(consultaSeparada, ruta);
                 break;
             case "DELETE":
+                sentenciaIdentificada = new Delete(consultaSeparada, ruta);
                 break;
             case "CREATE":
                 sentenciaIdentificada = new CreateTable(consultaSeparada, ruta);

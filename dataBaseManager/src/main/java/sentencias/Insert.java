@@ -31,14 +31,14 @@ public class Insert extends Sentencia {
             }
         }
 
-        if (encontrado == false || tablas == null) {
+        if (!encontrado || tablas == null) {
             throw new InexistentComponentException();
         }
 
         int numerito = 0;
 
         if (consultaSeparada[3].startsWith("(")) {
-            for (int i=3; i<consultaSeparada.length; i++) {
+            for (int i = 3; i < consultaSeparada.length; i++) {
                 columnas = columnas.concat(consultaSeparada[i] + " ");
                 if (consultaSeparada[i].endsWith(")")) {
                     numerito = i + 1;
@@ -56,7 +56,7 @@ public class Insert extends Sentencia {
         numerito++;
 
         if (consultaSeparada[numerito].startsWith("(")) {
-            for (int i=numerito; i<consultaSeparada.length; i++) {
+            for (int i = numerito; i < consultaSeparada.length; i++) {
                 valores = valores.concat(consultaSeparada[i] + " ");
                 if (consultaSeparada[i].endsWith(")")) {
                     break;
@@ -66,19 +66,32 @@ public class Insert extends Sentencia {
             throw new InvalidSentenceException();
         }
 
-        ManipularCSV.leerCSV(new File(ruta + "/" + consultaSeparada[2].toUpperCase().concat(".csv")));
-
-        //leer la primera linea del csv y compararla con el array "columnas"
-        //comparar que la misma cantidad de palabras exista en el array columnas y en el array valores
-        //insertar el array valores en una nueva linea en el archivo csv
-
         String linesita = ManipularCSV.leerPrimeraLinea(new File(ruta + "/" + consultaSeparada[2].toUpperCase().concat(".csv")));
-        System.out.println(columnas);
-        System.out.println(valores);
-        System.out.println(linesita);
+
+        columnas = columnas.replace("(", "").replace(")", "").trim();
+        valores = valores.replace("(", "").replace(")", "").trim();
+
+        if (!columnas.equals(linesita)) {
+            throw new InexistentComponentException();
+        }
+
+        int contadorComasColumnas = 0;
+        int contadorComasValores= 0;
+
+        for (int i=0; i<columnas.length(); i++) {
+            if (columnas.charAt(i) == ',') { contadorComasColumnas++; }
+        }
+        for (int i=0; i<valores.length(); i++) {
+            if (valores.charAt(i) == ',') { contadorComasValores++; }
+        }
+
+        if (contadorComasColumnas != contadorComasValores) {
+            throw new InvalidSentenceException();
+        }
+
     }
 
     public void accionSentencia() {
-        //Se modifica el archivo CSV para que se inserte una nueva linea
+        ManipularCSV.escribirNuevaLinea (ruta.toString(), consultaSeparada[2], valores);
     }
 }
