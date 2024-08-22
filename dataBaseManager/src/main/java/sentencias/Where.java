@@ -82,6 +82,7 @@ public class Where extends Sentencia {
 
         switch (tipo) {
             case "DELETE":
+                ManipularCSV.encontrarLineaDelete(ruta, consultaSeparada[2], columna, busqueda);
                 break;
 
             case "UPDATE":

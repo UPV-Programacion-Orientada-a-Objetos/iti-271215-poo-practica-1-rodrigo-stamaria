@@ -50,10 +50,11 @@ public class Select extends Sentencia {
                 throw new RuntimeException(e);
             }
         } else {
-            if (seleccion.equalsIgnoreCase("*")) {
+            if (seleccion.equals("*")) {
                 File rutaDeTabla = new File(ruta + "/" + consultaSeparada[3].toUpperCase() + ".csv");
                 ManipularCSV.leerCSV(rutaDeTabla);
             } else {
+                ManipularCSV.imprimirColumna(ruta, consultaSeparada[3], consultaSeparada[1]);
                 //AQUI SE IMPRIME SOLO LA COLUMNA QUE SOLICITÓ EL USUARIO
             }
         }
